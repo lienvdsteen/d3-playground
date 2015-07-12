@@ -64,14 +64,17 @@ svg.selectAll("circle")
     .on('mouseout', handleMouseOut);
 
 svg.on('click', function() {
+    // this = svg element
     var coords = d3.mouse(this);
     var newData = {
+        // because we have the pixel number and we need the data number we use invert
         x: Math.round(xScale.invert(coords[0])),
         y: Math.round(yScale.invert(coords[1]))
     };
 
     dataset.push(newData);
 
+    // append the circle!
     svg.selectAll('circle')
         .data(dataset)
         .enter()

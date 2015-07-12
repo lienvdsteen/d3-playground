@@ -7,7 +7,7 @@ var padding = 10;
 var radius = 4;
 var dataset = d3.range(150);
 
-var cxScale = d3.scale.pow().exponent(2)
+var cxScale = d3.scale.pow().exponent(0.5) // y = mx^k + b
     .domain([0, d3.max(dataset)])
     .range([padding + radius/2, window.innerWidth - padding - radius/2]);
 

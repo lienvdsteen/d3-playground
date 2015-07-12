@@ -27,6 +27,7 @@ var dataset = [
     {x: 40, y: 50}
 ];
 
+// scales because we need to plot our dataset in a right way
 var xScale = d3.scale.linear()
     .domain([0, d3.max(dataset, function(d) {return d.x})])
     .range([margin.left, w - margin.right]);
@@ -35,7 +36,9 @@ var yScale = d3.scale.linear()
     .domain([0, d3.max(dataset, function(d) {return d.y})])
     .range([margin.top, h - margin.bottom]);
 
-var xAxis = d3.svg.axis().scale(xScale).orient("top");
+// we have to scale our different values
+// so we want our values to link to the scale
+var xAxis = d3.svg.axis().scale(xScale).orient("top"); // the ticks need to go on the top of the axis line
 var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 // this is a svg group element

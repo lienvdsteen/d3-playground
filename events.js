@@ -59,13 +59,19 @@ svg.selectAll("circle")
         r: radius
     })
     .on('mouseover', function(d, i) {
+        // this = whatever circle was mouse overed
+        // it's a dom element, that's why we need to d3.select it
+        // of course changing the fill, could've easily been done with css
         d3.select(this).attr({
             'fill': 'orange',
             r: radius * 2
         });
 
+        // we're going to show the exact coordinates of the circle
         svg.append("text")
             .attr({
+                // we need the id to remove it later on mouseout
+                // otherwise the text would stay
                 id: "t" + d.x + "-" + d.y + '-' + i,
                 x: function() { return xScale(d.x) - 30; },
                 y: function() { return yScale(d.y) - 15; },

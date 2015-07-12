@@ -1,5 +1,3 @@
-var dataset = [8, 48, 14, 31, 23];
-
 svg = d3.select("body").append('svg').attr({
     width:1000,
     height:400
@@ -29,4 +27,4 @@ rects.enter()
         width: 50,
         height: 50,
         fill: "lightblue"
-    })
+    });

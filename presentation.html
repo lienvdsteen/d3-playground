@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+        <base target="_blank">
+
+		<title>d3.js: The basics</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-transition="linear" data-background-transition="slide">
+					<h1>d3.JS</h1>
+					<h3>The Basics</h3>
+				</section>
+
+				<section data-transition="linear" data-background-transition="slide">
+					<p>
+						Data Driven Documents <br />
+						<a href="http://d3js.org/">http://d3js.org/</a> <br /><br />
+					</p>
+
+					<p class="fragment">
+						It is NOT a charting library <br /><br />
+					</p>
+
+					<p class="fragment">
+						It is a explanatory tool, you use data that you already analyzed
+					</p>
+				</section>
+
+                <section data-transition="linear" data-background-transition="slide">
+                    <p>
+                        Examples <br /><br />
+                    </p>
+
+                    <p>
+                        <a href="http://www.nytimes.com/interactive/2012/02/13/us/politics/2013-budget-proposal-graphic.html?_r=0">Example 1</a> <br />
+                        <a href="http://christophermanning.org/gists/1703449/#/[10]50/1/0">Example 2</a> <br />
+                        <a href="http://bl.ocks.org/mbostock">More Examples</a>
+                    </p>
+                </section>
+
+                <section data-transition="linear" data-background-transition="slide">
+                    <p>
+                        Why use d3.js <br /><br />
+                    </p>
+
+                    <p class="fragment">
+                        Completely Customizable <br />
+                    </p>
+
+                    <p class="fragment">
+                        Flexible & Extendable
+                    </p>
+
+                    <p class="fragment">
+                        Extremely Powerful
+                    </p>
+                </section>
+
+				<section data-transition="linear" data-background-transition="slide">
+					<h3><a href="index.html">Very very basic</a></h3>
+					<pre>
+						<code class="html">
+    <script type="text/javascript" src="d3.min.js"></script>
+						</code>
+					</pre>
+				</section>
+
+
+				<section data-transition="linear" data-background-transition="slide">
+					<h3><a href="index.html">Basic Elements</a></h3>
+					<pre>
+						<code class="javascript">
+        d3
+        d3.select('body')
+	d3.selectAll('body')
+	var body = d3.select('body')
+	body.append('h1').text('hello Engagor!')
+	var h1 = body.select('h1')
+	h1.attr('id', 'heading')
+	h1.attr({id: 'something', 'class': 'my-class'})
+	h1.classed('another_class', true)
+	h1.classed('another_class', false)
+	body.insert('p', 'h1')
+	body.select('p').text('ik sta hier')
+	h1.remove()
+						</code>
+					</pre>
+				</section>
+
+						<section data-transition="linear" data-background-transition="slide">
+					<h3><a href="index_svg.html">SVG Basics</a></h3>
+					<pre>
+						<code class="html">
+<svg width='500' height='500'>
+    <polygon points="350,350 400,200 200,40 50,50 10,300" fill='purple'/>
+    <rect x='10' y='10' width='100' height='50' fill='blue' />
+    <circle cx='100' cy='100' r='50' style='fill:orange; stroke-width: 2; stroke:#000' />
+    <ellipse cx='200' cy='300' rx='50' ry='10' />
+    <text x='250' y='250' style="text-anchor:middle">Hello SVG</text>
+    <line x1='150' y1='200' x2='450' y2='450' stroke-width:'9' stroke='green' />
+    <polyline points="250,250 300,100 100,40 50,50 10,200" stroke='red'fill='none' />
+    <path d='M 100 100 L 100 200 L 200 100 z' fill='rgba(100,100,100, 0.5)' />
+</svg>
+						</code>
+					</pre>
+				</section>
+
+<section data-transition="linear"  data-background-transition="slide">
+					<h3><a href="index_svg.html">SVG Basics</a></h3>
+					<pre>
+						<code class="javascript">
+ var svg = d3.select('svg')
+ svg.append('circle').attr({cx:250, cy:250, r:200, fill:'black'})
+						</code>
+					</pre>
+				</section>
+
+
+<section data-transition="linear"  data-background-transition="slide">
+					<h3><a href="index_basicdata.html">Using data</a></h3>
+					<pre>
+						<code class="javascript">
+var dataset = [8, 48, 14, 31, 23]; // simple dataset
+
+// we have to create the svg element
+svg = d3.select("body").append('svg').attr({
+    width:600,
+    height:400
+});
+
+// we always begin by selecting a set of elements, even if you still have to create the elements
+// this might be confusing (and it is confusing at first)
+// but the reason we're doing this is:
+// sometimes you're going to want to use rectangles that are currently there, by selecting all of them, you can:
+    //  use them all
+    //  select a few of them
+    //  use them all and create more
+
+// if you have many different rectangles, you can select on rect.class / ...
+    svg.selectAll("rect")
+    .data(dataset) // binds the data
+    .enter() // creates placeholders for the missing rectangles for the datapoints
+    .append("rect") // with append we add the missing rectangles
+    .attr({ // style away!
+        // i = position of d in the dataset
+        // d = the element itself in the dataset
+
+        // move every rec 101 px right of the previous rectangle
+        x: function(d, i) {return i * 101;},
+        y: function(d, i) {return 400 - d * 5;},
+        width: 100,
+        height: function(d) {return d * 5;},
+        fill: "orange"
+    });
+
+
+						</code>
+					</pre>
+				</section>
+
+
+<section data-transition="linear"  data-background-transition="slide">
+					<h3><a href="index_basicdata2.html">Updating Pattern</a></h3>
+					<pre>
+						<code class="javascript">
+svg = d3.select("body").append('svg').attr({
+    width:1000,
+    height:400
+});
+
+svg.selectAll("rect")
+    .data(d3.range(5)) // will return [0,1,2,3,4]
+    .enter()
+    .append("rect")
+    .attr({
+        x: function(d, i) {return i * 101;},
+        y: 100,
+        width: 100,
+        height: 100,
+        fill: "474747"
+    });
+
+var moreData = d3.range(10);
+var rects = svg.selectAll("rect").data(moreData);
+
+rects.attr("fill", "#ccc");
+rects.enter()
+    .append('rect')
+    .attr({
+        x: function(d, i) {return i * 101;},
+        y: 100,
+        width: 50,
+        height: 50,
+        fill: "lightblue"
+    });
+						</code>
+					</pre>
+				</section>
+
+
+<section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="index_basicdata3.html">More on Updating Pattern</a></h3>
+                    <pre>
+                        <code class="javascript">
+var dataset = [8, 48, 14, 31, 23];
+
+svg = d3.select("body").append('svg').attr({
+    width:600,
+    height:400
+});
+
+svg.selectAll("rect")
+    .data(d3.range(5)) // will return [0,1,2,3,4]
+    .enter()
+    .append("rect")
+    .attr({
+        x: function(d, i) {return i * 101;},
+        y: 100,
+        width: 100,
+        height: 100,
+        fill: "474747"
+    });
+
+var moreData = d3.range(3);
+var rects = svg.selectAll("rect").data(moreData);
+rects.attr("fill", "#ccc");
+
+// rects.exit().attr("fill", "#ececec");
+rects.exit().remove();
+
+                        </code>
+                    </pre>
+                </section>
+
+<section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="index_scales.html">Scales</a></h3>
+                    <quote>
+                        Scales are functions that map from an input domain to an output range.
+                    </quote>
+                    </section>
+
+<section data-transition="linear"  data-background-transition="slide">
+					<h3><a href="index_scales.html">Scales</a></h3>
+					<pre>
+						<code class="javascript">
+var svg = d3.select("body").append('svg').attr({
+    width: window.innerWidth,
+    height: window.innerHeight
+});
+
+var dataset = [1, 5, 2, 4, 3, 8];
+
+// previously we did this to compute height:
+    // height: function(d) {return d * 5;},
+// this could cause problems if we get higher values
+    // it could set it over an acceptable height
+        // two bars would look like the same height
+        // visualizing becomes a failure
+var heightScale = d3.scale.linear() // y = mx + b
+    .domain([0, d3.max(dataset)]) // domain goes from zero to the heighest element in our dataset
+    .range([0, window.innerHeight - 40]); // values we want to map our output to
+
+// if you don't want to allow to go outside the domain scale
+    // heightScale.clamp(true);
+
+// don't we all love colors! ^^
+var color = d3.scale.linear()
+    .domain([0, d3.max(dataset)])
+    .range(["green", "red"]);
+
+svg.selectAll('rect')
+    .data(dataset)
+    .enter()
+    .append("rect")
+    .attr({
+        height: heightScale,
+        width: 100,
+        x: function(d, i) {return i * 101;},
+        y:  20,
+        fill: color
+    })
+
+						</code>
+					</pre>
+				</section>
+
+<section data-transition="linear"  data-background-transition="slide">
+					<h3><a href="index_scales3.html">Scales 2</a></h3>
+					<pre>
+						<code class="javascript">
+var svg = d3.select("body").append('svg').attr({
+    width: window.innerWidth,
+    height: window.innerHeight
+});
+
+var padding = 10;
+var radius = 4;
+var dataset = d3.range(150);
+
+// power function!
+// note: there's also d3.scale.sqrt()
+var cxScale = d3.scale.pow().exponent(2) // y = mx^2 + b
+    .domain([0, d3.max(dataset)])
+    .range([padding + radius/2, window.innerWidth - padding - radius/2]);
+
+var cyScale = d3.scale.linear()
+    .domain([0, d3.max(dataset)])
+    .range([window.innerHeight - padding - radius/2, padding + radius/2]);
+
+svg.selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+    .attr({
+        cx: cxScale,
+        cy: cyScale,
+        r: radius
+    });
+
+						</code>
+					</pre>
+				</section>
+
+<section data-transition="linear"  data-background-transition="slide">
+					<h3><a href="index_scales4.html">Scales 3</a></h3>
+					<pre>
+						<code class="javascript">
+var svg = d3.select("body").append('svg').attr({
+    width: window.innerWidth,
+    height: window.innerHeight
+});
+
+var dataset = [
+    {grade: "A+"},
+    {grade: "B"},
+    {grade: "A"},
+    {grade: "B-"},
+    {grade: "A"},
+    {grade: "B+"},
+    {grade: "A-"}
+];
+
+// discrete values, so the domain needs all the values from the dataset
+var gradeScale = d3.scale.ordinal()
+                    .domain(["A+", "A", "A-", "B+", "B", "B-"])
+                    .range([100, 89, 84, 79, 76, 72]);
+
+// because the values are close together we throw another linear scale on it too
+// because we can
+var scale = d3.scale.linear()
+    .domain([72, 100])
+    .range([20, 520]);
+
+svg.selectAll("text")
+    .data(dataset)
+    .enter()
+    .append("text")
+    .attr({
+        "text-anchor": "middle",
+        "font-size": 20,
+        x: function(d) {return scale(gradeScale(d.grade));},
+        y: function(d) {return scale(gradeScale(d.grade));}
+    }).text(function(d) {
+        return d.grade;
+    });
+
+						</code>
+					</pre>
+				</section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="index_axes.html">Axes</a></h3>
+                    <pre>
+                        <code class="javascript">
+var w = window.innerWidth;
+var h = window.innerHeight;
+var margin = {top: 40, right: 20, bottom: 20, left: 40};
+var radius = 6;
+
+var svg = d3.select("body").append('svg').attr({
+    width: w,
+    height: h
+});
+
+var dataset = [
+    {x: 100, y: 110},
+    {x: 83, y: 43},
+    {x: 92, y: 28},
+    {x: 49, y: 74},
+    {x: 51, y: 10},
+    {x: 25, y: 98},
+    {x: 77, y: 30},
+    {x: 20, y: 83},
+    {x: 11, y: 63},
+    {x: 4, y: 55},
+    {x: 0, y: 0},
+    {x: 85, y: 100},
+    {x: 60, y: 40},
+    {x: 70, y: 80},
+    {x: 10, y: 20},
+    {x: 40, y: 50}
+];
+
+// scales because we need to plot our dataset in a right way
+var xScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {return d.x})])
+    .range([margin.left, w - margin.right]);
+
+var yScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {return d.y})])
+    .range([margin.top, h - margin.bottom]);
+
+// we have to scale our different values
+// so we want our values to link to the scale
+var xAxis = d3.svg.axis().scale(xScale).orient("top"); // the ticks need to go on the top of the axis line
+var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+// this is a svg group element
+svg.append("g").attr({
+    'class': "axis",
+    transform: "translate(" + [0, margin.top] + ")"
+}).call(xAxis);
+
+svg.append("g").attr({
+    'class': "axis",
+    transform: "translate(" + [margin.left, 0] + ")"
+}).call(yAxis);
+
+svg.selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+    .attr({
+        cx: function(d) {return xScale(d.x);},
+        cy: function(d) {return yScale(d.y);},
+        r: radius
+    })
+                        </code>
+                    </pre>
+                </section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="events.html">Interacting With Events</a></h3>
+                    <pre>
+                        <code class="javascript">
+var w = window.innerWidth;
+var h = window.innerHeight;
+var margin = {top: 40, right: 20, bottom: 20, left: 40};
+var radius = 6;
+
+var svg = d3.select("body").append('svg').attr({
+    width: w,
+    height: h
+});
+
+var dataset = [
+    {x: 100, y: 110},
+    {x: 83, y: 43},
+    {x: 92, y: 28},
+    {x: 49, y: 74},
+    {x: 51, y: 10},
+    {x: 25, y: 98},
+    {x: 77, y: 30},
+    {x: 20, y: 83},
+    {x: 11, y: 63},
+    {x: 4, y: 55},
+    {x: 0, y: 0},
+    {x: 85, y: 100},
+    {x: 60, y: 40},
+    {x: 70, y: 80},
+    {x: 10, y: 20},
+    {x: 40, y: 50}
+];
+
+var xScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {return d.x})])
+    .range([margin.left, w - margin.right]);
+
+var yScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {return d.y})])
+    .range([margin.top, h - margin.bottom]);
+
+var xAxis = d3.svg.axis().scale(xScale).orient("top");
+var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+// this is a svg group element
+svg.append("g").attr({
+    'class': "axis",
+    transform: "translate(" + [0, margin.top] + ")"
+}).call(xAxis);
+
+svg.append("g").attr({
+    'class': "axis",
+    transform: "translate(" + [margin.left, 0] + ")"
+}).call(yAxis);
+
+svg.selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+    .attr({
+        cx: function(d) {return xScale(d.x);},
+        cy: function(d) {return yScale(d.y);},
+        r: radius
+    })
+    .on('mouseover', function(d, i) {
+        // this = whatever circle was mouse overed
+        // it's a dom element, that's why we need to d3.select it
+        // of course changing the fill, could've easily been done with css
+        d3.select(this).attr({
+            'fill': 'orange',
+            r: radius * 2
+        });
+
+        // we're going to show the exact coordinates of the circle
+        svg.append("text")
+            .attr({
+                // we need the id to remove it later on mouseout
+                // otherwise the text would stay
+                id: "t" + d.x + "-" + d.y + '-' + i,
+                x: function() { return xScale(d.x) - 30; },
+                y: function() { return yScale(d.y) - 15; },
+            })
+            .text(function() {
+                return [d.x, d.y];
+            });
+    })
+
+    .on('mouseout', function(d, i) {
+        d3.select(this).attr({
+            'fill': 'black',
+            r: radius
+        });
+
+        d3.select('#t' + d.x + '-' + d.y + "-" + i).remove();
+    });
+                        </code>
+                    </pre>
+                </section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="events2.html">Interacting With Events 2</a></h3>
+                    <pre>
+                        <code class="javascript">
+var w = window.innerWidth;
+var h = window.innerHeight;
+var margin = {top: 40, right: 20, bottom: 20, left: 40};
+var radius = 6;
+
+var svg = d3.select("body").append('svg').attr({
+    width: w,
+    height: h
+});
+
+var dataset = [
+    {x: 100, y: 110},
+    {x: 83, y: 43},
+    {x: 92, y: 28},
+    {x: 49, y: 74},
+    {x: 51, y: 10},
+    {x: 25, y: 98},
+    {x: 77, y: 30},
+    {x: 20, y: 83},
+    {x: 11, y: 63},
+    {x: 4, y: 55},
+    {x: 0, y: 0},
+    {x: 85, y: 100},
+    {x: 60, y: 40},
+    {x: 70, y: 80},
+    {x: 10, y: 20},
+    {x: 40, y: 50}
+];
+
+var xScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {return d.x})])
+    .range([margin.left, w - margin.right]);
+
+var yScale = d3.scale.linear()
+    .domain([0, d3.max(dataset, function(d) {return d.y})])
+    .range([margin.top, h - margin.bottom]);
+
+var xAxis = d3.svg.axis().scale(xScale).orient("top");
+var yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+var circleAttr = {
+        cx: function(d) {return xScale(d.x);},
+        cy: function(d) {return yScale(d.y);},
+        r: radius
+    };
+
+// this is a svg group element
+svg.append("g").attr({
+    'class': "axis",
+    transform: "translate(" + [0, margin.top] + ")"
+}).call(xAxis);
+
+svg.append("g").attr({
+    'class': "axis",
+    transform: "translate(" + [margin.left, 0] + ")"
+}).call(yAxis);
+
+svg.selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle")
+    .attr(circleAttr)
+    .on('mouseover', handleMouseOver)
+    .on('mouseout', handleMouseOut);
+
+svg.on('click', function() {
+    // this = svg element
+    var coords = d3.mouse(this);
+    var newData = {
+        // because we have the pixel number and we need the data number we use invert
+        x: Math.round(xScale.invert(coords[0])),
+        y: Math.round(yScale.invert(coords[1]))
+    };
+
+    dataset.push(newData);
+
+    // append the circle!
+    svg.selectAll('circle')
+        .data(dataset)
+        .enter()
+        .append('circle')
+        .attr(circleAttr)
+        .on('mouseover', handleMouseOver)
+        .on('mouseout', handleMouseOut);
+});
+
+function handleMouseOver(d, i) {
+        d3.select(this).attr({
+            'fill': 'orange',
+            r: radius * 2
+        });
+
+        svg.append("text")
+            .attr({
+                id: "t" + d.x + "-" + d.y + '-' + i,
+                x: function() { return xScale(d.x) - 30; },
+                y: function() { return yScale(d.y) - 15; },
+            })
+            .text(function() {
+                return [d.x, d.y];
+            });
+    };
+
+function handleMouseOut(d, i) {
+        d3.select(this).attr({
+            'fill': 'black',
+            r: radius
+        });
+
+        d3.select('#t' + d.x + '-' + d.y + "-" + i).remove();
+    }
+                        </code>
+                    </pre>
+                </section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="resources.html">Loading External Resources</a></h3>
+                    <pre>
+                        <code class="javascript">
+// d3.text
+// d3.json
+// d3.html
+// d3.xml
+// d3.csv
+// d3.tsv
+
+// always 2 parameters:
+    // path to the file
+    // and the callback function
+d3.csv("/sales.csv", function(d) {
+    d3.select('body').selectAll('p')
+        .data(d)
+        .enter()
+        .append('p')
+        .text(function(d) {
+            return d.name + ":" + d.sales;
+        });
+});
+                        </code>
+                    </pre>
+                </section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3><a href="shapecreation.html">Shape Creation</a></h3>
+                    <pre>
+                        <code class="javascript">
+var svg = d3.select('body').append('svg')
+    .attr({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+
+var parse = d3.time.format("%Y").parse;
+
+// i lied, the .csv function can also take 3 parameters!
+d3.csv('tut.csv', function(d) {d.year = parse(d.year); return d;}, function(data){
+
+    // ooh new scale type!
+    var yearScale = d3.time.scale()
+        // d3.extent returns an array with min, max
+        .domain(d3.extent(data, function(d) {return d.year;}))
+        .range([50, window.innerWidth - 50]);
+
+    var numberScale = d3.scale.linear()
+        .domain([0, d3.max(data, function(d) {return d.number;})])
+        .range([50, window.innerHeight - 50]);
+
+    // let's add an axis, make it look pretty
+    var yearAxis = d3.svg.axis().scale(yearScale)
+        //
+        .tickSize(100 - window.innerHeight)
+        .orient('bottom');
+
+    svg.append('g')
+        .attr({
+            'class': 'axis',
+            'transform': "translate(" + [0, window.innerHeight - 50] + ")"
+        }).call(yearAxis);
+
+    // this is the line on top
+    svg.append('line')
+        .attr({
+            x1: 50,
+            y1: 50,
+            x2: window.innerWidth - 50,
+            y2: 50,
+            fill: "none",
+            stroke: 'black'
+    });
+
+    // append the path between the circles!
+    var line = d3.svg.line()
+        .x(function(d) {return yearScale(d.year);})
+        .y(function(d) {return window.innerHeight - numberScale(d.number);});
+
+    svg.append('path')
+        .data([data])
+        .attr({
+            d: line,
+            fill: 'none',
+            stroke: '#78B446',
+            'stroke-width': 3
+        });
+
+    svg.selectAll('circle')
+        .data(data)
+        .enter()
+        .append('circle')
+        .attr({
+            cx: function(d) {return yearScale(d.year);},
+            cy: function(d) {return window.innerHeight - numberScale(d.number);},
+            r: 4,
+            fill: '#fff',
+            stroke: "#78B446",
+            "stroke-width": 4
+        });
+});
+                        </code>
+                    </pre>
+                </section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3>Reusable Charts?</h3>
+                    <div>
+                    <p>
+D3 doesn't offer solutions/opinions about
+<ul>
+<li>organization & architecture</li>
+<li>reducing boilerplate</li>
+<li>patterns for code reuse</li></ul>
+                    </p>
+                    </div>
+                </section>
+
+                 <section data-transition="linear"  data-background-transition="slide">
+                    <h3>Reusable Charts</h3>
+                    <div>
+                    <p>
+Projects doing this:
+<ul>
+<li>n3-charts <a href="http://n3-charts.github.io/line-chart/">http://n3-charts.github.io/line-chart/</a></li>
+<li>NVD3 <a href="http://nvd3.org/">http://nvd3.org/</a></li>
+<li>C3 <a>http://c3js.org/</a></li>
+<li>d3.chart <a href="http://misoproject.com/d3-chart/">http://misoproject.com/d3-chart/</a></li>
+</ul>
+                    </p>
+                    </div>
+                </section>
+
+                <section data-transition="linear"  data-background-transition="slide">
+                    <h3>Reusable Charts</h3>
+                    <div>
+                    Next dev talk!
+                    </div>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+		<script type="text/javascript" src="d3.min.js"></script>
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: 'sky', // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
